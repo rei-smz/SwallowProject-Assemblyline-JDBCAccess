@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
-@EnableScheduling
+//@EnableScheduling
 public class DemoApplication {
 
     private static final Logger log = LoggerFactory.getLogger(DemoApplication.class);
@@ -38,4 +38,5 @@ public class DemoApplication {
             log.info(quote.toString());
         };
     }
+
 }

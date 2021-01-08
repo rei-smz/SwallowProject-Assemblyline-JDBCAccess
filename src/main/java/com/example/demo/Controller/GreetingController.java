@@ -25,26 +25,26 @@ public class GreetingController {
      */
 
     @GetMapping("/greeting")
-    //public Greeting[] greeting(@RequestParam(value = "name", defaultValue = "World") String name){
-    /*public Greeting[] greeting()
-    {
-        Greeting[] g = new Greeting[20];
-        String[] name= {"佳艺","高登","佳艺","高登","佳艺","高登","佳艺","高登","佳艺","高登",
-                "佳艺","高登","佳艺","高登","佳艺","高登","佳艺","高登","佳艺","高登"};
-        for(int i=0;i<20;i++)
+    public Greeting[] greeting(@RequestParam(value = "121", defaultValue = "World") String name) {
+        //public Greeting[] greeting()
         {
-            g[i]=new Greeting(counter.incrementAndGet(), String.format(template, name[i]));
+           Greeting[] g = new Greeting[20];
+            /*String[] namae = {"佳艺", "高登", "佳艺", "高登", "佳艺", "高登", "佳艺", "高登", "佳艺", "高登",
+                    "佳艺", "高登", "佳艺", "高登", "佳艺", "高登", "佳艺", "高登", "佳艺", "高登"};*/
+            for (int i = 0; i < 20; i++) {
+                g[i] = new Greeting(counter.incrementAndGet(), String.format(template, name));
+            }
+            return g;
         }
-        return g;
-    }*/
-    @Scheduled(fixedRate = 1000)
+   /* @Scheduled(fixedRate = 1000)
     //schdule 不能有参数
-    /*public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name)
-    {*/
+    *//*public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name)
+    {*//*
     public Greeting greeting()
     {
            Greeting g = new Greeting(counter.incrementAndGet(),
                    String.format(template, dateFormat.format(new Date())));
         return g;
+    }*/
     }
 }
