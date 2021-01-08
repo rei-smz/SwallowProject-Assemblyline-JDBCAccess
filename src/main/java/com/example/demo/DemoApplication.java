@@ -38,5 +38,4 @@ public class DemoApplication {
             log.info(quote.toString());
         };
     }
-
 }

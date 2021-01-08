@@ -1,5 +1,4 @@
 package com.example.demo.Controller;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -13,24 +12,16 @@ import java.util.Map;
 
 
 @Controller
-public class QuickCon {
-    private static final String template = "select * from sample1 where time=%d";
+public class sample3_query {
+    private static final String template = "select * from sample3 where id=%d";
     private static int ssn=0;
     @Autowired
     private JdbcTemplate jdbcTemplate1;
-    @RequestMapping("/sample")
+    @RequestMapping("/sample3")
     @ResponseBody
     public List<Map<String,Object>> contextLoads(@RequestParam(value = "t",defaultValue = "1")String t) {
         ssn=Integer.parseInt(t);
         List<Map<String,Object>> result=jdbcTemplate1.queryForList(String.format(template,ssn));
         return result;
     }
-    @RequestMapping("/quick")
-    @ResponseBody
-    public String quick()
-    {
-        return "hello motherfucker";
-    }
-
-
 }
