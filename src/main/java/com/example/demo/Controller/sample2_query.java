@@ -14,14 +14,13 @@ import java.util.Map;
 @Controller
 public class sample2_query {
     private static final String template = "select * from sample2 where id=%d";
-    private static int ssn=0;
+    private static int ssn=1;
     @Autowired
     private JdbcTemplate jdbcTemplate1;
     @RequestMapping("/sample2")
     @ResponseBody
-    public List<Map<String,Object>> contextLoads(@RequestParam(value = "t",defaultValue = "1")String t) {
-        ssn=Integer.parseInt(t);
-        List<Map<String,Object>> result=jdbcTemplate1.queryForList(String.format(template,ssn));
+    public List<Map<String,Object>> contextLoads() {
+        List<Map<String,Object>> result=jdbcTemplate1.queryForList(String.format(template,ssn++));
         return result;
     }
 }
