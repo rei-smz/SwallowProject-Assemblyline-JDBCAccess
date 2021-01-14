@@ -3,6 +3,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,6 +19,7 @@ public class sample3_query {
     @Autowired
     private JdbcTemplate jdbcTemplate1;
     @RequestMapping("/sample3")
+    @CrossOrigin
     @ResponseBody
     public List<Map<String,Object>> contextLoads(@RequestParam(value = "t",defaultValue = "1")String t) {
         ssn=Integer.parseInt(t);
