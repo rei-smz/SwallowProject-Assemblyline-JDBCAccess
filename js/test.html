@@ -12,11 +12,9 @@
         
         <script>
             let id = [],length = [], width = [], height = [], weight = [];
-            var i = 1;
-            function getData(i){
-                var url="http://localhost:8080/sample3?t=";
-                var req_url = url + String(i);
-                $.getJSON(req_url, function(json_data){
+            function getData(){
+                var url="http://localhost:8080/sample3";
+                $.getJSON(url, function(json_data){
                     id.push(json_data[0]['id']);
                     length.push(json_data[0]['length']);
                     width.push(json_data[0]['width']);
@@ -24,8 +22,7 @@
                     weight.push(json_data[0]['weight']);
                 });
             }
-            getData(i);
-            i++;
+            getData();
             var option = {
                 title: {
                     text: '测试表格'
@@ -49,6 +46,9 @@
                     data: id
                 },
                 yAxis: {
+                    min: 0,
+                    max: 100,
+                    name: 'value',
                     type: 'value',
                     boundaryGap: [0, '50%'],
                 },
@@ -80,7 +80,7 @@
                 ]
             }
             setInterval(function () {
-                getData(i);
+                getData();
                 first_chart.setOption({
                     xAxis: {
                         data: id
@@ -112,7 +112,6 @@
                     }
                     ]
                 });
-                i++;
             }, 1000);
             let first_chart = echarts.init(document.getElementById('main'),'wonderland');
             first_chart.setOption(option);
