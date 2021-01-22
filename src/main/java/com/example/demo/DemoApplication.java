@@ -29,13 +29,4 @@ public class DemoApplication {
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
         return builder.build();
     }
-
-    @Bean
-    public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
-        return args -> {
-            Chapter3Quote quote = restTemplate.getForObject(
-                    "https://gturnquist-quoters.cfapps.io/api/random", Chapter3Quote.class);
-            log.info(quote.toString());
-        };
-    }
 }
