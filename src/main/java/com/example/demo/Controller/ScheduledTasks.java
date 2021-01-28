@@ -10,12 +10,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 @Component
 public class ScheduledTasks {
-/*
     private static final Logger log = LoggerFactory.getLogger(ScheduledTasks.class);
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-    @Scheduled(fixedRate = 1000)
+    @Scheduled(fixedRate = 10000)
+    //refresh info_page for 0.2ms
     public void reportCurrentTime() {
         log.info("The time is now {}", dateFormat.format(new Date()));
-    }*/
+    }
 }

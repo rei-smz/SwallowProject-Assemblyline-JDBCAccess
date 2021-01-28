@@ -20,7 +20,7 @@ import org.springframework.web.client.RestTemplate;
 import javax.sql.DataSource;
 
 @SpringBootApplication
-//@EnableScheduling
+@EnableScheduling
 public class DemoApplication {
 
 
