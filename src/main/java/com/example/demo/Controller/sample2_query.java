@@ -13,13 +13,17 @@ import javax.sql.DataSource;
 import java.util.List;
 import java.util.Map;
 
-
+@ResponseBody
 @Controller
 public class sample2_query {
 
 
     private static final String template = "select * from sample2 where id=%d";
     private static int ssn=1;
+    private static long rows;
+    @Autowired
+    @Qualifier("secondaryJdbcTemplate")
+    protected JdbcTemplate jdbcTemplate2;
     @Autowired
     @Qualifier("primaryJdbcTemplate")
     private JdbcTemplate jdbcTemplate1;
@@ -28,5 +32,12 @@ public class sample2_query {
     public List<Map<String,Object>> contextLoads() {
         List<Map<String,Object>> result=jdbcTemplate1.queryForList(String.format(template,ssn++));
         return result;
+    }
+    @RequestMapping("/sp2rows")
+    @Scheduled(fixedRate = 200)
+    //refresh info_page for 0.2ms
+    public long rows() {
+        String sentence="select table_rows from tables where table_name=\"sample1\";";
+        return jdbcTemplate2.queryForObject(sentence,long.class);
     }
 }
