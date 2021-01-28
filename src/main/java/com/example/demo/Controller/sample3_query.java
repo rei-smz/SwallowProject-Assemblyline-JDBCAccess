@@ -21,6 +21,7 @@ public class sample3_query {
     private static final String template = "select * from sample3 where id=%d";
     private static int ssn=1;
     private static long rows;
+    
     @Autowired
     @Qualifier("secondaryJdbcTemplate")
     protected JdbcTemplate jdbcTemplate2;
