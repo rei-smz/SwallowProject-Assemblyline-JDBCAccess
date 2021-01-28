@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<head>
+    <style>
+        .header {
+            margin-top: 200px;
+            text-align: center;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 30px;
+            color: black
+        }
+        
+        .time {
+            margin-top: 60px;
+            text-align: center;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            font-size: 30px;
+            color: black;
+        }
+        
+        .content {
+            margin-top: 70px;
+            text-align: center;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: xx-large;
+            color: black
+        }
+        
+        .content a {
+            color: black;
+        }
+        
+        .content :hover {
+            color: darkgray
+        }
+    </style>
+</head>
+<div class="header">
+    <h1>INDEX</h1>
+</div>
+<div class="time">
+    <div id="show_time">
+        <script>
+            setInterval("fun(show_time)", 1);
+
+            function fun(timeID) {
+                var date = new Date();
+                var y = date.getFullYear();
+                var m = date.getMonth() + 1;
+                var d = date.getDate();
+                var w = date.getDay();
+                var h = date.getHours();
+                var minute = date.getMinutes()
+                var s = date.getSeconds();
+                if (m < 10) {
+                    m = "0" + m;
+                }
+                if (d < 10) {
+                    d = "0" + d;
+                }
+                if (h < 10) {
+                    h = "0" + h;
+                }
+                if (minute < 10) {
+                    minute = "0" + minute;
+                }
+                if (s < 10) {
+                    s = "0" + s;
+                }
+                document.getElementById(timeID.id).innerHTML = y + "-" + m + "-" + d + "      " + h + ":" + minute + ":" + s
+            }
+        </script>
+    </div>
+    <div class="content">
+        <p>
+            <a href="line1.html" target="blank"><u>line1</u></a>
+            <br>
+            <br>
+            <a href="line1.html" target="blank"><u>line2</u></a>
+            <br>
+            <br>
+            <a href="line1.html" target="blank"><u>line3</u></a>
+        </p>
+
+
+    </div>
