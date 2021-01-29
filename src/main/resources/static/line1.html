@@ -133,28 +133,47 @@
                 <span class="form-input">FFFF图</span>
             </form>
         </div>
-        <div id="chart1" class="box_style ">
-           
+        <div id="chart1" class="box_style ">   
         </div>
-        <div id="chart2" class="box_style ">
-            
+
+        <div id="chart2" class="box_style "> 
         </div>
-        <div class="box_style ">
-            <p>3</p>
+
+        <div id="chart3" class="box_style ">      
         </div>
-        <div class="box_style ">
-            <p>4</p>
+        <div id="chart4" class="box_style ">         
         </div>
-        <div class="box_style ">
-            <p>5</p>
+<!--
+       <div class="box_style ">     
         </div>
-        <div class="box_style ">
-            <p>6</p>
+        <div class="box_style ">      
         </div>
-        <div id = "warningLog" style="width: 800px;height: 400px; overflow-y:auto;">
-            <p id="DefaultMessage">警报日志：</p>
+-->
+        <div id = "warningLog1" style="overflow-y:auto;" class="box_style ">
+            <p id="DefaultMessage1">严重危险警报：</p>
         </div>
+        <div id = "warningLog2" style="overflow-y:auto;" class="box_style ">
+            <p id="DefaultMessage2">潜在危险警报：</p>
+        </div>     
     </div>
+
+    
+
+    <form id="ChangeInformation" >      
+        <p>
+            高位阈值: <input type="text" id="high" style="display:inline">
+        </p>
+        <p>
+            中位阈值: <input type="text" id="average" style="display:inline">
+        </p>
+        <p>
+            低位阈值: <input type="text" id="low" style="display:inline">
+        </p>
+        <p>
+            <button type="button" onclick="ChangeInformation()">提交</button> <button type="button" onclick="Reset()">重置</button>
+        </p>
+    </form>
+         
 
     <script>
         var id = [],length = [], width = [], height = [], weight = [];
@@ -169,18 +188,76 @@
             });
         }
 
+        getData();
+
+        var HigherCount = 0;
+        var LowerCount = 0;
+        var HighestHeight = 17;
+        var AverageHeight = 16.5;
+        var LowestHeight = 16;
+
         function judge(){
-            if(id[id.length-1] > 10){
-                let position = document.getElementById('warningLog');
+            if(height[height.length-1] > HighestHeight){
+                HigherCount++;
+                let position = document.getElementById('warningLog1');
                 let temp = document.createElement('p');
                 var now = new Date();
-                let warningText = now+"发生警报：id值："+id[id.length-1]+" 大于阈值";
+                let warningText = now+"产线出现严重危险：height值："+height[height.length-1]+" 大于最大阈值";
                 temp.innerText = warningText;
                 position.appendChild(temp);
             }
+            else if(height[height.length-1] < LowestHeight){
+                LowerCount++;
+                let position = document.getElementById('warningLog1');
+                let temp = document.createElement('p');
+                var now = new Date();
+                let warningText = now+"产线出现严重危险：height值："+height[height.length-1]+" 低于最小阈值";
+                temp.innerText = warningText;
+                position.appendChild(temp);
+            }
+            else if(height[height.length-1] >= AverageHeight && height[height.length-1] <= HighestHeight){
+                HigherCount++;
+                LowerCount = 0;
+            }
+            else if(height[height.length-1] < AverageHeight && height[height.length-1] >= LowestHeight){
+                HigherCount = 0;
+                LowerCount++;
+            }
+            
+
+            if(HigherCount>=5){
+                let position = document.getElementById('warningLog2');
+                let temp = document.createElement('p');
+                var now = new Date();
+                let warningText = now+"产线出现潜在危险：height值连续"+HigherCount+"次高于中位阈值";
+                temp.innerText = warningText;
+                position.appendChild(temp);
+            }
+            else if(LowerCount>=5){
+                let position = document.getElementById('warningLog2');
+                let temp = document.createElement('p');
+                var now = new Date();
+                let warningText = now+"产线出现潜在危险：height值连续"+LowerCount+"次低于中位阈值";
+                temp.innerText = warningText;
+                position.appendChild(temp);
+            }
+            
         }
        
-        getData();
+        function ChangeInformation(){
+            LowestHeight = Number(document.getElementById('low').value);
+            HighestHeight = Number(document.getElementById('high').value);
+            AverageHeight = Number(document.getElementById('average').value);
+        }
+
+        function Reset(){
+            HighestHeight = 17;
+            AverageHeight = 16.5;
+            LowestHeight = 16;
+            document.getElementById('low').value="";
+            document.getElementById('high').value="";
+            document.getElementById('average').value="";
+        }
 
         var Chart1option = {
             title: {
@@ -190,7 +267,7 @@
                 trigger: 'axis'
             },
             legend: {
-                data: ['长度','宽度']
+                data: ['长度']
             },
              grid: {
                 left: '3%',
@@ -206,7 +283,7 @@
             },
             yAxis: {
                 min: 0,
-                max: 100,
+                max: 30,
                 name: 'value',
                 type: 'value',
                 boundaryGap: [0, '50%'],
@@ -216,12 +293,6 @@
                     name: '长度',
                     type: 'line',
                     data: length,
-                    stack: '值'
-                },
-                {
-                    name: '宽度',
-                    type: 'line',
-                    data: width,
                     stack: '值'
                 }
             ]
@@ -235,7 +306,7 @@
                 trigger: 'axis'
             },
             legend: {
-                data: ['高度', '重量']
+                data: ['高度']
             },
              grid: {
                 left: '3%',
@@ -251,7 +322,7 @@
             },
             yAxis: {
                 min: 0,
-                max: 100,
+                max: 30,
                 name: 'value',
                 type: 'value',
                 boundaryGap: [0, '50%'],
@@ -262,7 +333,79 @@
                     type: 'line',
                     data: height,
                     stack: '值'
-                },
+                }
+            ]
+        }
+
+        var Chart3option = {
+            title: {
+                text: '表格3'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: ['宽度']
+            },
+             grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                name: 'id',
+                type: 'category',
+                boundaryGap: false,
+                data: id
+            },
+            yAxis: {
+                min: 0,
+                max: 30,
+                name: 'value',
+                type: 'value',
+                boundaryGap: [0, '50%'],
+            },
+            series: [            
+                {
+                    name: '宽度',
+                    type: 'line',
+                    data: width,
+                    stack: '值'
+                }
+            ]
+        }
+
+        var Chart4option = {
+            title: {
+                text: '表格4'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: ['重量']
+            },
+             grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                name: 'id',
+                type: 'category',
+                boundaryGap: false,
+                data: id
+            },
+            yAxis: {
+                min: 0,
+                max: 50,
+                name: 'value',
+                type: 'value',
+                boundaryGap: [0, '50%'],
+            },
+            series: [
                 {
                     name: '重量',
                     type: 'line',
@@ -285,13 +428,7 @@
                     type: 'line',
                     data: length,
                     stack: '值'
-                },
-                {
-                    name: '宽度',
-                    type: 'line',
-                    data: width,
-                    stack: '值'
-                },
+                }
                 ]
             });
 
@@ -305,7 +442,15 @@
                     type: 'line',
                     data: height,
                     stack: '值'
+                }
+                ]
+            });
+
+            Chart4.setOption({
+                xAxis: {
+                    data: id
                 },
+                series: [
                 {
                     name: '重量',
                     type: 'line',
@@ -314,11 +459,33 @@
                 }
                 ]
             });
-            
+
+            Chart3.setOption({
+                xAxis: {
+                    data: id
+                },
+                series: [
+                {
+                    name: '宽度',
+                    type: 'line',
+                    data: width,
+                    stack: '值'
+                }
+                ]
+            });         
         }, 1000);
+
         var Chart1 = echarts.init(document.getElementById('chart1'),'wonderland');
         Chart1.setOption(Chart1option);
+
         var Chart2 = echarts.init(document.getElementById('chart2'),'wonderland');
         Chart2.setOption(Chart2option);
+
+        var Chart3 = echarts.init(document.getElementById('chart3'),'wonderland');
+        Chart3.setOption(Chart3option);
+
+        var Chart4 = echarts.init(document.getElementById('chart4'),'wonderland');
+        Chart4.setOption(Chart4option);
+
     </script>
 </body>
