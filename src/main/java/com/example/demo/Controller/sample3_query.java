@@ -21,7 +21,7 @@ public class sample3_query {
     private static final String template = "select * from sample3 where id=%d";
     private static int ssn=1;
     private static long rows;
-    
+
     @Autowired
     @Qualifier("secondaryJdbcTemplate")
     protected JdbcTemplate jdbcTemplate2;
@@ -38,7 +38,7 @@ public class sample3_query {
     @Scheduled(fixedRate = 200)
     //refresh info_page for 0.2ms
     public long rows() {
-        String sentence="select table_rows from tables where table_name=\"sample1\";";
+        String sentence="select table_rows from tables where table_name=\"sample3\";";
         return jdbcTemplate2.queryForObject(sentence,long.class);
     }
 }

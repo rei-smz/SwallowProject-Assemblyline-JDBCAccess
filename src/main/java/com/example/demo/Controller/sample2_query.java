@@ -37,7 +37,7 @@ public class sample2_query {
     @Scheduled(fixedRate = 200)
     //refresh info_page for 0.2ms
     public long rows() {
-        String sentence="select table_rows from tables where table_name=\"sample1\";";
+        String sentence="select table_rows from tables where table_name=\"sample2\";";
         return jdbcTemplate2.queryForObject(sentence,long.class);
     }
 }
