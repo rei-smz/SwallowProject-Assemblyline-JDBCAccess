@@ -1,17 +1,23 @@
 <!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+</html>
 
 <head>
-    <style>
-    @media screen and (max-width: 1200px) {
+    <meta charset="utf-8">
+    <title></title>
+    <style type=text/css>
+        @media screen and (max-width: 1200px) and (min-width: 0px) {
             .box {
                 text-align: center;
                 margin: auto;
                 border: solid 2px black;
-                width: 95% height: 90%;
+                width: 1200px;
+                height: 736px;
             }
             .boxnav {
                 width: 100%;
-                height: 12%;
+                height: 64px;
                 border: solid 2px black;
                 float: left;
             }
@@ -30,7 +36,7 @@
                 border-color: black;
                 margin-top: 12px;
                 float: left;
-                margin-left: 0.5%;
+                margin-left: 2px;
             }
             input {
                 display: none;
@@ -46,8 +52,15 @@
             .form-input {
                 float: left;
                 margin-top: 20px;
-                margin-left: 0.5%;
-                margin-right: 5%;
+                margin-left: 2px;
+                margin-right: 50px;
+            }
+            .Bigbox_Style {
+                text-align: center;
+                border: solid 2px black;
+                width: 1200px;
+                height: 736px;
+                display: none;
             }
         }
         
@@ -56,11 +69,11 @@
                 text-align: center;
                 margin: auto;
                 border: solid 5px black;
-                width: 95%;
+                width: 1850px;
                 height: 800px;
             }
             .boxnav {
-                width: 100%;
+                width: 1850px;
                 height: 64px;
                 border: solid 2px black;
             }
@@ -98,9 +111,245 @@
                 margin-right: 10%;
                 margin-left: 5px;
             }
+            .Bigbox_Style {
+                text-align: center;
+                border: solid 2px black;
+                width: 1850px;
+                height: 730px;
+                display: none;
+            }
         }
-    }
     </style>
+    <script src="http://lib.sinaapp.com/js/jquery/1.7.2/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(function() {
+                $("#checkboxDiv").find(":checkbox").each(function() {
+                    $(this).click(function() {
+                        if ($(this).is(':checked')) {
+                            $(this).attr('checked', true).siblings().attr('checked', false);
+                        } else {
+                            $(this).attr('checked', false).siblings().attr('checked', false);
+                        }
+                    });
+                });
+            });
+        });
+        $(document).ready(function() {
+            $(function() {
+                $("#checkboxDiv2").find(":checkbox").each(function() {
+                    $(this).click(function() {
+                        if ($(this).is(':checked')) {
+                            $(this).attr('checked', true).siblings().attr('checked', false);
+                        } else {
+                            $(this).attr('checked', false).siblings().attr('checked', false);
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        window.onload = function() {
+
+            var checkbox1 = this.document.getElementById('cboxA');
+            var checkbox2 = this.document.getElementById('cboxB');
+            var checkbox3 = this.document.getElementById('cboxC');
+            var checkbox4 = this.document.getElementById('cboxD');
+            var checkbox5 = this.document.getElementById('cboxE');
+            var checkbox6 = this.document.getElementById('cboxF');
+
+            checkbox1.onclick = function() {
+                if (checkbox1.checked) {
+                    document.getElementById('chart1').style.display = 'none';
+                    document.getElementById('chart2').style.display = 'none';
+                    document.getElementById('chart3').style.display = 'none';
+                    document.getElementById('chart4').style.display = 'none';
+                    document.getElementById('warningLog1').style.display = 'none';
+                    document.getElementById('warningLog2').style.display = 'none';
+                    document.getElementById('box1').style.display = 'block';
+                    document.getElementById('box2').style.display = 'none';
+                    document.getElementById('box3').style.display = 'none';
+                    document.getElementById('box4').style.display = 'none';
+                    document.getElementById('box5').style.display = 'none';
+                    document.getElementById('box6').style.display = 'none';
+
+                } else {
+                    document.getElementById('chart1').style.display = 'block';
+                    document.getElementById('chart2').style.display = 'block';
+                    document.getElementById('chart3').style.display = 'block';
+                    document.getElementById('chart4').style.display = 'block';
+                    document.getElementById('warningLog1').style.display = 'block';
+                    document.getElementById('warningLog2').style.display = 'block';
+                    document.getElementById('box1').style.display = 'none';
+                    document.getElementById('box2').style.display = 'none';
+                    document.getElementById('box3').style.display = 'none';
+                    document.getElementById('box4').style.display = 'none';
+                    document.getElementById('box5').style.display = 'none';
+                    document.getElementById('box6').style.display = 'none';
+
+                }
+            };
+            checkbox2.onclick = function() {
+                if (checkbox2.checked) {
+                    document.getElementById('chart1').style.display = 'none';
+                    document.getElementById('chart2').style.display = 'none';
+                    document.getElementById('chart3').style.display = 'none';
+                    document.getElementById('chart4').style.display = 'none';
+                    document.getElementById('warningLog1').style.display = 'none';
+                    document.getElementById('warningLog2').style.display = 'none';
+                    document.getElementById('box2').style.display = 'block';
+                    document.getElementById('box1').style.display = 'none';
+                    document.getElementById('box3').style.display = 'none';
+                    document.getElementById('box4').style.display = 'none';
+                    document.getElementById('box5').style.display = 'none';
+                    document.getElementById('box6').style.display = 'none';
+
+                } else {
+                    document.getElementById('chart1').style.display = 'block';
+                    document.getElementById('chart2').style.display = 'block';
+                    document.getElementById('chart3').style.display = 'block';
+                    document.getElementById('chart4').style.display = 'block';
+                    document.getElementById('warningLog1').style.display = 'block';
+                    document.getElementById('warningLog2').style.display = 'block';
+                    document.getElementById('box2').style.display = 'none';
+                    document.getElementById('box1').style.display = 'none';
+                    document.getElementById('box3').style.display = 'none';
+                    document.getElementById('box4').style.display = 'none';
+                    document.getElementById('box5').style.display = 'none';
+                    document.getElementById('box6').style.display = 'none';
+
+                }
+            };
+            checkbox3.onclick = function() {
+                if (checkbox3.checked) {
+                    document.getElementById('chart1').style.display = 'none';
+                    document.getElementById('chart2').style.display = 'none';
+                    document.getElementById('chart3').style.display = 'none';
+                    document.getElementById('chart4').style.display = 'none';
+                    document.getElementById('warningLog1').style.display = 'none';
+                    document.getElementById('warningLog2').style.display = 'none';
+                    document.getElementById('box3').style.display = 'block';
+                    document.getElementById('box1').style.display = 'none';
+                    document.getElementById('box3').style.display = 'none';
+                    document.getElementById('box4').style.display = 'none';
+                    document.getElementById('box5').style.display = 'none';
+                    document.getElementById('box6').style.display = 'none';
+
+                } else {
+                    document.getElementById('chart1').style.display = 'block';
+                    document.getElementById('chart2').style.display = 'block';
+                    document.getElementById('chart3').style.display = 'block';
+                    document.getElementById('chart4').style.display = 'block';
+                    document.getElementById('warningLog1').style.display = 'block';
+                    document.getElementById('warningLog2').style.display = 'block';
+                    document.getElementById('box3').style.display = 'none';
+                    document.getElementById('box2').style.display = 'none';
+                    document.getElementById('box1').style.display = 'none';
+                    document.getElementById('box4').style.display = 'none';
+                    document.getElementById('box5').style.display = 'none';
+                    document.getElementById('box6').style.display = 'none';
+
+                }
+            };
+            checkbox4.onclick = function() {
+                if (checkbox4.checked) {
+                    document.getElementById('chart1').style.display = 'none';
+                    document.getElementById('chart2').style.display = 'none';
+                    document.getElementById('chart3').style.display = 'none';
+                    document.getElementById('chart4').style.display = 'none';
+                    document.getElementById('warningLog1').style.display = 'none';
+                    document.getElementById('warningLog2').style.display = 'none';
+                    document.getElementById('box4').style.display = 'block';
+                    document.getElementById('box2').style.display = 'none';
+                    document.getElementById('box3').style.display = 'none';
+                    document.getElementById('box1').style.display = 'none';
+                    document.getElementById('box5').style.display = 'none';
+                    document.getElementById('box6').style.display = 'none';
+
+                } else {
+                    document.getElementById('chart1').style.display = 'block';
+                    document.getElementById('chart2').style.display = 'block';
+                    document.getElementById('chart3').style.display = 'block';
+                    document.getElementById('chart4').style.display = 'block';
+                    document.getElementById('warningLog1').style.display = 'block';
+                    document.getElementById('warningLog2').style.display = 'block';
+                    document.getElementById('box4').style.display = 'none';
+                    document.getElementById('box2').style.display = 'none';
+                    document.getElementById('box3').style.display = 'none';
+                    document.getElementById('box1').style.display = 'none';
+                    document.getElementById('box5').style.display = 'none';
+                    document.getElementById('box6').style.display = 'none';
+
+                }
+            };
+            checkbox5.onclick = function() {
+                if (checkbox5.checked) {
+                    document.getElementById('chart1').style.display = 'none';
+                    document.getElementById('chart2').style.display = 'none';
+                    document.getElementById('chart3').style.display = 'none';
+                    document.getElementById('chart4').style.display = 'none';
+                    document.getElementById('warningLog1').style.display = 'none';
+                    document.getElementById('warningLog2').style.display = 'none';
+                    document.getElementById('box5').style.display = 'block';
+                    document.getElementById('box2').style.display = 'none';
+                    document.getElementById('box3').style.display = 'none';
+                    document.getElementById('box4').style.display = 'none';
+                    document.getElementById('box1').style.display = 'none';
+                    document.getElementById('box6').style.display = 'none';
+
+                } else {
+                    document.getElementById('chart1').style.display = 'block';
+                    document.getElementById('chart2').style.display = 'block';
+                    document.getElementById('chart3').style.display = 'block';
+                    document.getElementById('chart4').style.display = 'block';
+                    document.getElementById('warningLog1').style.display = 'block';
+                    document.getElementById('warningLog2').style.display = 'block';
+                    document.getElementById('box5').style.display = 'none';
+                    document.getElementById('box2').style.display = 'none';
+                    document.getElementById('box3').style.display = 'none';
+                    document.getElementById('box4').style.display = 'none';
+                    document.getElementById('box1').style.display = 'none';
+                    document.getElementById('box6').style.display = 'none';
+
+                }
+            };
+            checkbox6.onclick = function() {
+                if (checkbox6.checked) {
+                    document.getElementById('chart1').style.display = 'none';
+                    document.getElementById('chart2').style.display = 'none';
+                    document.getElementById('chart3').style.display = 'none';
+                    document.getElementById('chart4').style.display = 'none';
+                    document.getElementById('warningLog1').style.display = 'none';
+                    document.getElementById('warningLog2').style.display = 'none';
+                    document.getElementById('box6').style.display = 'block';
+                    document.getElementById('box2').style.display = 'none';
+                    document.getElementById('box3').style.display = 'none';
+                    document.getElementById('box4').style.display = 'none';
+                    document.getElementById('box5').style.display = 'none';
+                    document.getElementById('box1').style.display = 'none';
+
+                } else {
+                    document.getElementById('chart1').style.display = 'block';
+                    document.getElementById('chart2').style.display = 'block';
+                    document.getElementById('chart3').style.display = 'block';
+                    document.getElementById('chart4').style.display = 'block';
+                    document.getElementById('warningLog1').style.display = 'block';
+                    document.getElementById('warningLog2').style.display = 'block';
+                    document.getElementById('box6').style.display = 'none';
+                    document.getElementById('box2').style.display = 'none';
+                    document.getElementById('box3').style.display = 'none';
+                    document.getElementById('box4').style.display = 'none';
+                    document.getElementById('box5').style.display = 'none';
+                    document.getElementById('box1').style.display = 'none';
+
+                }
+            };
+
+
+
+        };
+    </script>
     <meta charset="utf-8">
     <title>测试图表</title>
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
@@ -113,53 +362,67 @@
     <div class="box">
         <div class="boxnav">
             <form>
-                <input type="checkbox" name="box" value="A" id="A" class="form-input">
-                <label for=A></label>
-                <span class="form-input">AAAA图</span>
-                <input type="checkbox" name="box" value="B" id="B" class="form-input">
-                <label for=B></label>
-                <span class="form-input">BBBB图</span>
-                <input type="checkbox" name="box" value="C" id="C" class="form-input">
-                <label for=C></label>
-                <span class="form-input">CCCC图</span>
-                <input type="checkbox" name="box" value="D" id="D" class="form-input">
-                <label for=D></label>
-                <span class="form-input">DDDD图</span>
-                <input type="checkbox" name="box" value="E" id="E" class="form-input">
-                <label for=E></label>
-                <span class="form-input">EEEE图</span>
-                <input type="checkbox" name="box" value="F" id="F" class="form-input">
-                <label for=F></label>
-                <span class="form-input">FFFF图</span>
+                <div id="checkboxDiv">
+                    <input type="checkbox" name="checkboxName" value="A" id="cboxA" class="form-input" />
+                    <label for=cboxA></label>
+                    <span class="form-input">AAAA图</span>
+                    <input type="checkbox" name="checkboxName" value="B" id="cboxB" class="form-input" />
+                    <label for=cboxB></label>
+                    <span class="form-input">BBBB图</span>
+                    <input type="checkbox" name="checkboxName" value="C" id="cboxC" class="form-input" />
+                    <label for=cboxC></label>
+                    <span class="form-input">CCCC图</span>
+                    <input type="checkbox" name="checkboxName" value="D" id="cboxD" class="form-input" />
+                    <label for=cboxD></label>
+                    <span class="form-input">DDDD图</span>
+                    <input type="checkbox" name="checkboxName" value="E" id="cboxE" class="form-input" />
+                    <label for=cboxE></label>
+                    <span class="form-input">EEEE图</span>
+                    <input type="checkbox" name="checkboxName" value="F" id="cboxF" class="form-input" />
+                    <label for=cboxF></label>
+                    <span class="form-input">FFFF图</span>
+                </div>
             </form>
         </div>
-        <div id="chart1" class="box_style ">   
+        <div id="chart1" class="box_style ">
         </div>
 
-        <div id="chart2" class="box_style "> 
+        <div id="chart2" class="box_style ">
         </div>
 
-        <div id="chart3" class="box_style ">      
+        <div id="chart3" class="box_style ">
         </div>
-        <div id="chart4" class="box_style ">         
+        <div id="chart4" class="box_style ">
         </div>
-<!--
+
+
+
+
+        <!--
        <div class="box_style ">     
         </div>
         <div class="box_style ">      
         </div>
 -->
-        <div id = "warningLog1" style="overflow-y:auto;" class="box_style ">
+        <div id="warningLog1" style="overflow-y:auto;" class="box_style ">
             <p id="DefaultMessage1">严重危险警报：</p>
         </div>
-        <div id = "warningLog2" style="overflow-y:auto;" class="box_style ">
+        <div id="warningLog2" style="overflow-y:auto;" class="box_style ">
             <p id="DefaultMessage2">潜在危险警报：</p>
-        </div>     
+        </div>
+        <div class="Bigbox_Style" id="box1"></div>
+        <div class="Bigbox_Style" id="box2"></div>
+        <div class="Bigbox_Style" id="box3"></div>
+        <div class="Bigbox_Style" id="box4"></div>
+        <div class="Bigbox_Style" id="box5"></div>
+        <div class="Bigbox_Style" id="box6"></div>
     </div>
 
-    
 
-    <form id="ChangeInformation" >      
+
+
+
+    <form id="ChangeInformation">
         <p>
             高位阈值: <input type="text" id="high" style="display:inline">
         </p>
@@ -173,13 +436,18 @@
             <button type="button" onclick="ChangeInformation()">提交</button> <button type="button" onclick="Reset()">重置</button>
         </p>
     </form>
-         
+
 
     <script>
-        var id = [],length = [], width = [], height = [], weight = [];
-        function getData(){
-            var url="http://localhost:8080/sample3";
-            $.getJSON(url, function(json_data){
+        var id = [],
+            length = [],
+            width = [],
+            height = [],
+            weight = [];
+
+        function getData() {
+            var url = "http://localhost:8080/sample3";
+            $.getJSON(url, function(json_data) {
                 id.push(json_data[0]['id']);
                 length.push(json_data[0]['length']);
                 width.push(json_data[0]['width']);
@@ -196,67 +464,63 @@
         var AverageHeight = 16.5;
         var LowestHeight = 16;
 
-        function judge(){
-            if(height[height.length-1] > HighestHeight){
+        function judge() {
+            if (height[height.length - 1] > HighestHeight) {
                 HigherCount++;
                 let position = document.getElementById('warningLog1');
                 let temp = document.createElement('p');
                 var now = new Date();
-                let warningText = now+"产线出现严重危险：height值："+height[height.length-1]+" 大于最大阈值";
+                let warningText = now + "产线出现严重危险：height值：" + height[height.length - 1] + " 大于最大阈值";
                 temp.innerText = warningText;
                 position.appendChild(temp);
-            }
-            else if(height[height.length-1] < LowestHeight){
+            } else if (height[height.length - 1] < LowestHeight) {
                 LowerCount++;
                 let position = document.getElementById('warningLog1');
                 let temp = document.createElement('p');
                 var now = new Date();
-                let warningText = now+"产线出现严重危险：height值："+height[height.length-1]+" 低于最小阈值";
+                let warningText = now + "产线出现严重危险：height值：" + height[height.length - 1] + " 低于最小阈值";
                 temp.innerText = warningText;
                 position.appendChild(temp);
-            }
-            else if(height[height.length-1] >= AverageHeight && height[height.length-1] <= HighestHeight){
+            } else if (height[height.length - 1] >= AverageHeight && height[height.length - 1] <= HighestHeight) {
                 HigherCount++;
                 LowerCount = 0;
-            }
-            else if(height[height.length-1] < AverageHeight && height[height.length-1] >= LowestHeight){
+            } else if (height[height.length - 1] < AverageHeight && height[height.length - 1] >= LowestHeight) {
                 HigherCount = 0;
                 LowerCount++;
             }
-            
 
-            if(HigherCount>=5){
+
+            if (HigherCount >= 5) {
                 let position = document.getElementById('warningLog2');
                 let temp = document.createElement('p');
                 var now = new Date();
-                let warningText = now+"产线出现潜在危险：height值连续"+HigherCount+"次高于中位阈值";
+                let warningText = now + "产线出现潜在危险：height值连续" + HigherCount + "次高于中位阈值";
                 temp.innerText = warningText;
                 position.appendChild(temp);
-            }
-            else if(LowerCount>=5){
+            } else if (LowerCount >= 5) {
                 let position = document.getElementById('warningLog2');
                 let temp = document.createElement('p');
                 var now = new Date();
-                let warningText = now+"产线出现潜在危险：height值连续"+LowerCount+"次低于中位阈值";
+                let warningText = now + "产线出现潜在危险：height值连续" + LowerCount + "次低于中位阈值";
                 temp.innerText = warningText;
                 position.appendChild(temp);
             }
-            
+
         }
-       
-        function ChangeInformation(){
+
+        function ChangeInformation() {
             LowestHeight = Number(document.getElementById('low').value);
             HighestHeight = Number(document.getElementById('high').value);
             AverageHeight = Number(document.getElementById('average').value);
         }
 
-        function Reset(){
+        function Reset() {
             HighestHeight = 17;
             AverageHeight = 16.5;
             LowestHeight = 16;
-            document.getElementById('low').value="";
-            document.getElementById('high').value="";
-            document.getElementById('average').value="";
+            document.getElementById('low').value = "";
+            document.getElementById('high').value = "";
+            document.getElementById('average').value = "";
         }
 
         var Chart1option = {
@@ -269,7 +533,7 @@
             legend: {
                 data: ['长度']
             },
-             grid: {
+            grid: {
                 left: '3%',
                 right: '4%',
                 bottom: '3%',
@@ -288,14 +552,12 @@
                 type: 'value',
                 boundaryGap: [0, '50%'],
             },
-            series: [
-                {
-                    name: '长度',
-                    type: 'line',
-                    data: length,
-                    stack: '值'
-                }
-            ]
+            series: [{
+                name: '长度',
+                type: 'line',
+                data: length,
+                stack: '值'
+            }]
         }
 
         var Chart2option = {
@@ -308,7 +570,7 @@
             legend: {
                 data: ['高度']
             },
-             grid: {
+            grid: {
                 left: '3%',
                 right: '4%',
                 bottom: '3%',
@@ -327,14 +589,12 @@
                 type: 'value',
                 boundaryGap: [0, '50%'],
             },
-            series: [
-                {
-                    name: '高度',
-                    type: 'line',
-                    data: height,
-                    stack: '值'
-                }
-            ]
+            series: [{
+                name: '高度',
+                type: 'line',
+                data: height,
+                stack: '值'
+            }]
         }
 
         var Chart3option = {
@@ -347,7 +607,7 @@
             legend: {
                 data: ['宽度']
             },
-             grid: {
+            grid: {
                 left: '3%',
                 right: '4%',
                 bottom: '3%',
@@ -366,14 +626,12 @@
                 type: 'value',
                 boundaryGap: [0, '50%'],
             },
-            series: [            
-                {
-                    name: '宽度',
-                    type: 'line',
-                    data: width,
-                    stack: '值'
-                }
-            ]
+            series: [{
+                name: '宽度',
+                type: 'line',
+                data: width,
+                stack: '值'
+            }]
         }
 
         var Chart4option = {
@@ -386,7 +644,7 @@
             legend: {
                 data: ['重量']
             },
-             grid: {
+            grid: {
                 left: '3%',
                 right: '4%',
                 bottom: '3%',
@@ -405,87 +663,77 @@
                 type: 'value',
                 boundaryGap: [0, '50%'],
             },
-            series: [
-                {
-                    name: '重量',
-                    type: 'line',
-                    data: weight,
-                    stack: '值'
-                }
-            ]
+            series: [{
+                name: '重量',
+                type: 'line',
+                data: weight,
+                stack: '值'
+            }]
         }
 
-        setInterval(function () {
+        setInterval(function() {
             getData();
             judge();
             Chart1.setOption({
                 xAxis: {
                     data: id
                 },
-                series: [
-                {
+                series: [{
                     name: '长度',
                     type: 'line',
                     data: length,
                     stack: '值'
-                }
-                ]
+                }]
             });
 
             Chart2.setOption({
                 xAxis: {
                     data: id
                 },
-                series: [
-                {
+                series: [{
                     name: '高度',
                     type: 'line',
                     data: height,
                     stack: '值'
-                }
-                ]
+                }]
             });
 
             Chart4.setOption({
                 xAxis: {
                     data: id
                 },
-                series: [
-                {
+                series: [{
                     name: '重量',
                     type: 'line',
                     data: weight,
                     stack: '值'
-                }
-                ]
+                }]
             });
 
             Chart3.setOption({
                 xAxis: {
                     data: id
                 },
-                series: [
-                {
+                series: [{
                     name: '宽度',
                     type: 'line',
                     data: width,
                     stack: '值'
-                }
-                ]
-            });         
+                }]
+            });
         }, 1000);
 
-        var Chart1 = echarts.init(document.getElementById('chart1'),'wonderland');
+        var Chart1 = echarts.init(document.getElementById('chart1'), 'wonderland');
         Chart1.setOption(Chart1option);
 
-        var Chart2 = echarts.init(document.getElementById('chart2'),'wonderland');
+        var Chart2 = echarts.init(document.getElementById('chart2'), 'wonderland');
         Chart2.setOption(Chart2option);
 
-        var Chart3 = echarts.init(document.getElementById('chart3'),'wonderland');
+        var Chart3 = echarts.init(document.getElementById('chart3'), 'wonderland');
         Chart3.setOption(Chart3option);
 
-        var Chart4 = echarts.init(document.getElementById('chart4'),'wonderland');
+        var Chart4 = echarts.init(document.getElementById('chart4'), 'wonderland');
         Chart4.setOption(Chart4option);
-
     </script>
+
 </body>
