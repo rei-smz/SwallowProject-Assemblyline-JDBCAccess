@@ -121,6 +121,7 @@
         }
     </style>
     <script src="http://lib.sinaapp.com/js/jquery/1.7.2/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery-resize/1.1/jquery.ba-resize.js"></script>
     <script>
         $(document).ready(function() {
             $(function() {
@@ -149,6 +150,8 @@
             });
         });
     </script>
+    
+
     <script type="text/javascript">
         window.onload = function() {
 
@@ -161,7 +164,12 @@
 
             checkbox1.onclick = function() {
                 if (checkbox1.checked) {
-                    document.getElementById('chart1').style.display = 'none';
+                    document.getElementById('chart1').style.display = 'block';
+                    document.getElementById('chart1').style.width='1850px';
+                    document.getElementById('chart1').style.height='700px';                    
+		            Chart1.resize();
+                    
+
                     document.getElementById('chart2').style.display = 'none';
                     document.getElementById('chart3').style.display = 'none';
                     document.getElementById('chart4').style.display = 'none';
@@ -176,6 +184,11 @@
 
                 } else {
                     document.getElementById('chart1').style.display = 'block';
+                    
+                    
+                    //复原的话只需要把对应的chart设置成原来的样式，然后resize就行。
+                    
+		            Chart1.resize();
                     document.getElementById('chart2').style.display = 'block';
                     document.getElementById('chart3').style.display = 'block';
                     document.getElementById('chart4').style.display = 'block';
@@ -193,7 +206,7 @@
             checkbox2.onclick = function() {
                 if (checkbox2.checked) {
                     document.getElementById('chart1').style.display = 'none';
-                    document.getElementById('chart2').style.display = 'none';
+                    document.getElementById('chart2').style.display = 'block';
                     document.getElementById('chart3').style.display = 'none';
                     document.getElementById('chart4').style.display = 'none';
                     document.getElementById('warningLog1').style.display = 'none';
@@ -225,7 +238,7 @@
                 if (checkbox3.checked) {
                     document.getElementById('chart1').style.display = 'none';
                     document.getElementById('chart2').style.display = 'none';
-                    document.getElementById('chart3').style.display = 'none';
+                    document.getElementById('chart3').style.display = 'block';
                     document.getElementById('chart4').style.display = 'none';
                     document.getElementById('warningLog1').style.display = 'none';
                     document.getElementById('warningLog2').style.display = 'none';
@@ -257,7 +270,7 @@
                     document.getElementById('chart1').style.display = 'none';
                     document.getElementById('chart2').style.display = 'none';
                     document.getElementById('chart3').style.display = 'none';
-                    document.getElementById('chart4').style.display = 'none';
+                    document.getElementById('chart4').style.display = 'block';
                     document.getElementById('warningLog1').style.display = 'none';
                     document.getElementById('warningLog2').style.display = 'none';
                     document.getElementById('box4').style.display = 'block';
@@ -350,7 +363,6 @@
 
         };
     </script>
-    <meta charset="utf-8">
     <title>测试图表</title>
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/echarts/5.0.0/echarts.min.js"></script>
