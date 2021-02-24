@@ -30,12 +30,4 @@ public class QuickCon {
         String sentence="select table_rows from tables where table_name=\"sample2\";";
         return jdbcTemplate2.queryForObject(sentence,long.class);
     }
-    @RequestMapping("/quick")
-    @ResponseBody
-    public String quick()
-    {
-        return "hello motherfucker";
-    }
-
-
 }
