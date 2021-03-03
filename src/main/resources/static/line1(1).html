@@ -1,0 +1,1138 @@
+<!-- TODO:检查监控窗口的DOM -->
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <title>生产线1</title>
+    
+    <style type=text/css>
+        .hamburger {
+            background: transparent;
+            border: none;
+            display: block;
+            height: 32px;
+            margin-left: 15px;
+            position: relative;
+            top: auto;
+            width: 32px;
+            z-index: auto;
+        }
+        .hamburger:hover {
+            outline: none;
+        }
+        .hamburger:focus {
+            outline: none;
+        }
+        .hamburger:active {
+            outline: none;
+        }
+        .hamburger.is-closed:before {
+            -webkit-transform: translate3d(0, 0, 0);
+            -webkit-transition: all 0.35s ease-in-out;
+            color: #ffffff;
+            content: '';
+            display: block;
+            font-size: 14px;
+            line-height: 32px;
+            opacity: 0;
+            text-align: center;
+            width: 100px;
+        }
+        .hamburger.is-closed:hover before {
+            -webkit-transform: translate3d(-100px, 0, 0);
+            -webkit-transition: all 0.35s ease-in-out;
+            display: block;
+            opacity: 1;
+        }
+        .hamburger.is-closed:hover .hamb-top {
+            -webkit-transition: all 0.35s ease-in-out;
+            top: 0;
+        }
+        .hamburger.is-closed:hover .hamb-bottom {
+            -webkit-transition: all 0.35s ease-in-out;
+            bottom: 0;
+        }
+        .hamburger.is-closed .hamb-top {
+            -webkit-transition: all 0.35s ease-in-out;
+            background-color: rgba(0, 0, 0, 0.7);
+            top: 5px;
+        }
+        .hamburger.is-closed .hamb-middle {
+            background-color: rgba(0, 0, 0, 0.7);
+            margin-top: -2px;
+            top: 50%;
+        }
+        .hamburger.is-closed .hamb-bottom {
+            -webkit-transition: all 0.35s ease-in-out;
+            background-color: rgba(0, 0, 0, 0.7);
+            bottom: 5px;
+        }
+        .hamburger.is-closed .hamb-top,
+        .hamburger.is-closed .hamb-middle,
+        .hamburger.is-closed .hamb-bottom,
+        .hamburger.is-open .hamb-top,
+        .hamburger.is-open .hamb-middle,
+        .hamburger.is-open .hamb-bottom {
+            height: 4px;
+            left: 0;
+            position: absolute;
+            width: 100%;
+        }
+        .hamburger.is-open .hamb-top {
+            -webkit-transform: rotate(45deg);
+            -webkit-transition: -webkit-transform 0.2s cubic-bezier(0.73, 1, 0.28, 0.08);
+            background-color: #000000;
+            margin-top: -2px;
+            top: 50%;
+        }
+        .hamburger.is-open .hamb-middle {
+            background-color: #000000;
+            display: none;
+        }
+        .hamburger.is-open .hamb-bottom {
+            -webkit-transform: rotate(-45deg);
+            -webkit-transition: -webkit-transform 0.2s cubic-bezier(0.73, 1, 0.28, 0.08);
+            background-color: #000000;
+            margin-top: -2px;
+            top: 50%;
+        }
+        .hamburger.is-open:before {
+            -webkit-transform: translate3d(0, 0, 0);
+            -webkit-transition: all 0.35s ease-in-out;
+            color: #000000;
+            content: '';
+            display: block;
+            font-size: 14px;
+            line-height: 32px;
+            opacity: 0;
+            text-align: center;
+            width: 100px;
+        }
+        .hamburger.is-open:hover before {
+            -webkit-transform: translate3d(-100px, 0, 0);
+            -webkit-transition: all 0.35s ease-in-out;
+            display: block;
+            opacity: 1;
+        }
+        #wrapper {
+            -moz-transition: all 0.5s ease;
+            -o-transition: all 0.5s ease;
+            -webkit-transition: all 0.5s ease;
+            padding-left: 0;
+            transition: all 0.5s ease;
+        }
+        #wrapper.toggled {
+            padding-left: 220px;
+        }
+        #wrapper.toggled #sidebar-wrapper {
+            width: 220px;
+        }
+        #wrapper.toggled #page-content-wrapper {
+            margin-right: -220px;
+            position: absolute;
+        }
+        #sidebar-wrapper {
+            -moz-transition: all 0.5s ease;
+            -o-transition: all 0.5s ease;
+            -webkit-transition: all 0.5s ease;
+            background: #1a1a1a;
+            height: 100%;
+            left: 220px;
+            margin-left: -220px;
+            overflow-x: hidden;
+            overflow-y: auto;
+            transition: all 0.5s ease;
+            width: 0;
+            z-index: 1000;
+        }
+        #sidebar-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+        #page-content-wrapper {
+            padding-top: 10px;
+            width: 100%;
+        }
+        .sidebar-nav {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            top: 0;
+            width: 220px;
+        }
+        .sidebar-nav li {
+            display: inline-block;
+            line-height: 20px;
+            position: relative;
+            width: 100%;
+        }
+        .sidebar-nav li:before {
+            background-color: #1c1c1c;
+            content: '';
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            -webkit-transition: width 0.2s ease-in;
+            transition: width 0.2s ease-in;
+            width: 3px;
+            z-index: -1;
+        }
+        .sidebar-nav li:first-child a {
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+        .sidebar-nav li:nth-child(2):before {
+            background-color: #627dd7;
+        }
+        .sidebar-nav li:nth-child(3):before {
+            background-color: #627dd7;
+        }
+        .sidebar-nav li:nth-child(4):before {
+            background-color: #627dd7;
+        }
+        .sidebar-nav li:nth-child(5):before {
+            background-color: #627dd7;
+        }
+        .sidebar-nav li:nth-child(6):before {
+            background-color: #627dd7;
+        }
+        .sidebar-nav li:hover:before {
+            -webkit-transition: width 0.2s ease-in;
+            transition: width 0.2s ease-in;
+            width: 100%;
+        }
+        .sidebar-nav li a {
+            color: #dddddd;
+            display: block;
+            padding: 10px 15px 10px 30px;
+            text-decoration: none;
+        }
+        .sidebar-nav li.open:hover before {
+            -webkit-transition: width 0.2s ease-in;
+            transition: width 0.2s ease-in;
+            width: 100%;
+        }
+        .sidebar-nav .dropdown-menu {
+            background-color: #222222;
+            border-radius: 0;
+            border: none;
+            box-shadow: none;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            width: 100%;
+        }
+        .sidebar-nav li a:hover,
+        .sidebar-nav li a:active,
+        .sidebar-nav li a:focus,
+        .sidebar-nav li.open a:hover,
+        .sidebar-nav li.open a:active,
+        .sidebar-nav li.open a:focus {
+            background-color: transparent;
+            color: #ffffff;
+            text-decoration: none;
+        }
+        .sidebar-nav > .sidebar-brand {
+            font-size: 20px;
+            height: 65px;
+            line-height: 44px;
+        }
+        @media screen and (max-width: 1200px) and (min-width: 0px) {
+            .box {
+                text-align: center;
+                margin: auto;
+                border: solid 2px black;
+                width: 1200px;
+                height: 736px;
+            }
+            .boxnav {
+                width: 100%;
+                height: 64px;
+                border: solid 2px black;
+                float: left;
+            }
+            div.row .col-md-3 {
+                width: 100%;
+                height: 364px;
+                border: solid 2px black;
+                float: left;
+            }
+            label {
+                display: inline-block;
+                width: 30px;
+                height: 30px;
+                border: 5px;
+                border-style: double;
+                border-color: black;
+                margin-top: 12px;
+                float: left;
+                margin-left: 2px;
+            }
+            input {
+                display: none;
+            }
+            input+label:after {
+                content: "\2716";
+                font-size: 20px;
+                color: #FFF;
+            }
+            input:checked+label:after {
+                color: black;
+            }
+            .form-input {
+                float: left;
+                margin-top: 20px;
+                margin-left: 2px;
+                margin-right: 50px;
+            }
+            .Bigbox_Style {
+                text-align: center;
+                border: solid 2px black;
+                width: 1200px;
+                height: 736px;
+                display: none;
+            }
+        } 
+        
+        /* 以下为PC端自适应CSS */
+        @media screen and (min-width: 1200px) {
+            .box {
+                text-align: center;
+                margin: auto;
+                border: solid 5px black;
+                width: 1850px;
+                height: 800px;
+            }
+            div.row .col-md-12 {              
+                height: 64px;
+                border: solid 2px black;
+            }
+            div.row .col-md-4 {        
+                height: 364px;
+                border: solid 2px black;
+                float: left;
+            }
+            label {
+                display: inline-block;
+                width: 30px;
+                height: 30px;
+                border: 5px;
+                border-style: double;
+                border-color: black;
+                margin-top: 15px;
+                float: left;
+                margin-left: 0.8%;
+            }
+           
+            input+label:after {
+                content: "\2716";
+                font-size: 20px;
+                color: #FFF;
+            }
+            input:checked+label:after {
+                color: black;
+            }
+            .form-input {
+                float: left;
+                margin-top: 20px;
+                margin-right: 10%;
+                margin-left: 5px;
+            }
+            input.form-input{
+                display: none;
+            }
+            .Bigbox_Style {
+                text-align: center;
+                border: solid 2px black;
+                width: 1850px;
+                height: 730px;
+                display: none;
+            }
+        }
+    </style>
+    
+    <script>
+        $(document).ready(function() {
+            $(function() {
+                $("#checkboxDiv").find(":checkbox").each(function() {
+                    $(this).click(function() {
+                        if ($(this).is(':checked')) {
+                            $(this).attr('checked', true).siblings().attr('checked', false);
+                        } else {
+                            $(this).attr('checked', false).siblings().attr('checked', false);
+                        }
+                    });
+                });
+            });
+        });
+        $(document).ready(function() {
+            $(function() {
+                $("#checkboxDiv2").find(":checkbox").each(function() {
+                    $(this).click(function() {
+                        if ($(this).is(':checked')) {
+                            $(this).attr('checked', true).siblings().attr('checked', false);
+                        } else {
+                            $(this).attr('checked', false).siblings().attr('checked', false);
+                        }
+                    });
+                });
+            });
+        });
+        $(document).ready(function() {
+            var trigger = $('.hamburger'),
+                overlay = $('.overlay'),
+                isClosed = false;
+            trigger.click(function() {
+                hamburger_cross();
+            });
+            function hamburger_cross() {
+                if (isClosed == true) {
+                    overlay.hide();
+                    trigger.removeClass('is-open');
+                    trigger.addClass('is-closed');
+                    isClosed = false;
+                } else {
+                    overlay.show();
+                    trigger.removeClass('is-closed');
+                    trigger.addClass('is-open');
+                    isClosed = true;
+                }
+            }
+            $('[data-toggle="offcanvas"]').click(function() {
+                $('#wrapper').toggleClass('toggled');
+            });
+        });
+
+        $(window).resize(function() {
+            Chart1.resize();
+            Chart2.resize();
+            Chart3.resize();
+            Chart4.resize();
+            ColChart.resize();
+        });
+    </script>
+    
+    <script type="text/javascript">
+        window.onload = function() {
+            var checkbox1 = this.document.getElementById('cboxA');
+            var checkbox2 = this.document.getElementById('cboxB');
+            var checkbox3 = this.document.getElementById('cboxC');
+            var checkbox4 = this.document.getElementById('cboxD');
+            var checkbox5 = this.document.getElementById('cboxE');
+            var checkbox6 = this.document.getElementById('cboxF');
+
+            checkbox1.onclick = function() {
+                var c1 = $('#chart1');
+                if (checkbox1.checked) {         
+                    c1.animate({
+                        width: '1850px',
+                        height: '730px'
+                    }, 888,function(){
+                        Chart1.resize();
+                    });
+                    $('#chart2').hide();
+                    $('#chart3').hide();
+                    $('#chart4').hide();
+                    $('#warningLog1').hide();
+                    $('#warningLog2').hide();        
+                    $('#box2').hide();
+                    $('#box3').hide();
+                    $('#box4').hide();
+                    $('#box5').hide();
+                    $('#box6').hide();
+                } else {                  
+                    c1.animate({
+                        width: '612px',
+                        height: '364px'
+                    }, 888,function(){
+                        Chart1.resize();
+                        $('#chart2').fadeIn();
+                        $('#chart3').fadeIn();
+                        $('#chart4').fadeIn();
+                        $('#warningLog1').fadeIn();
+                        $('#warningLog2').fadeIn();                   
+                        $('#box2').fadeIn();
+                        $('#box3').fadeIn();
+                        $('#box4').fadeIn();
+                        $('#box5').fadeIn();
+                        $('#box6').fadeIn();                  
+                    }); 
+                }
+            };
+            checkbox2.onclick = function() {
+                var c2 = $('#chart2');
+                if (checkbox2.checked) {         
+                    c2.animate({
+                        width: '1850px',
+                        height: '730px'
+                    }, 888,function(){
+                        Chart2.resize();
+                    });
+                    $('#chart1').hide();
+                    $('#chart3').hide();
+                    $('#chart4').hide();
+                    $('#warningLog1').hide();
+                    $('#warningLog2').hide();        
+                    $('#box1').hide();
+                    $('#box3').hide();
+                    $('#box4').hide();
+                    $('#box5').hide();
+                    $('#box6').hide();
+                } else {
+                    c2.animate({
+                        width: '612px',
+                        height: '364px'
+                    }, 888,function(){
+                        Chart2.resize();
+                        $('#chart1').fadeIn();
+                    $('#chart3').fadeIn();
+                    $('#chart4').fadeIn();
+                    $('#warningLog1').fadeIn();
+                    $('#warningLog2').fadeIn();                   
+                    $('#box1').fadeIn();
+                    $('#box3').fadeIn();
+                    $('#box4').fadeIn();
+                    $('#box5').fadeIn();
+                    $('#box6').fadeIn();
+                    });
+                   
+                }
+            };
+            checkbox3.onclick = function() {
+                var c3 = $('#chart3');
+                if (checkbox3.checked) {         
+                    c3.animate({
+                        width: '1850px',
+                        height: '730px'
+                    }, 888,function(){
+                        Chart3.resize();
+                    });
+                    $('#chart1').hide();
+                    $('#chart2').hide();
+                    $('#chart4').hide();
+                    $('#warningLog1').hide();
+                    $('#warningLog2').hide();        
+                    $('#box1').hide();
+                    $('#box2').hide();
+                    $('#box4').hide();
+                    $('#box5').hide();
+                    $('#box6').hide();
+                } else {
+                    c3.animate({
+                        width: '612px',
+                        height: '364px'
+                    }, 888,function(){
+                        Chart3.resize();
+                        $('#chart1').fadeIn();
+                    $('#chart2').fadeIn();
+                    $('#chart4').fadeIn();
+                    $('#warningLog1').fadeIn();
+                    $('#warningLog2').fadeIn();                   
+                    $('#box1').fadeIn();
+                    $('#box2').fadeIn();
+                    $('#box4').fadeIn();
+                    $('#box5').fadeIn();
+                    $('#box6').fadeIn();
+                    });                 
+                }
+            };
+            checkbox4.onclick = function() {
+                var c4 = $('#chart4');
+                if (checkbox4.checked) {         
+                    c4.animate({
+                        width: '1850px',
+                        height: '730px'
+                    }, 888,function(){
+                        Chart4.resize();
+                    });
+                    $('#chart1').hide();
+                    $('#chart2').hide();
+                    $('#chart3').hide();
+                    $('#warningLog1').hide();
+                    $('#warningLog2').hide();        
+                    $('#box1').hide();
+                    $('#box2').hide();
+                    $('#box3').hide();
+                    $('#box5').hide();
+                    $('#box6').hide();
+                } else {
+                    c4.animate({
+                        width: '612px',
+                        height: '364px'
+                    }, 888,function(){
+                        Chart4.resize();
+                        $('#chart1').fadeIn();
+                    $('#chart2').fadeIn();
+                    $('#chart3').fadeIn();
+                    $('#warningLog1').fadeIn();
+                    $('#warningLog2').fadeIn();                   
+                    $('#box1').fadeIn();
+                    $('#box2').fadeIn();
+                    $('#box3').fadeIn();
+                    $('#box5').fadeIn();
+                    $('#box6').fadeIn();
+                    });
+                    
+                }
+                
+            };
+            checkbox5.onclick = function() {
+                if (checkbox5.checked) {
+                    document.getElementById('chart1').style.display = 'none';
+                    document.getElementById('chart2').style.display = 'none';
+                    document.getElementById('chart3').style.display = 'none';
+                    document.getElementById('chart4').style.display = 'none';
+                    document.getElementById('warningLog1').style.display = 'none';
+                    document.getElementById('warningLog2').style.display = 'none';
+                    document.getElementById('box5').style.display = 'block';
+                    document.getElementById('box2').style.display = 'none';
+                    document.getElementById('box3').style.display = 'none';
+                    document.getElementById('box4').style.display = 'none';
+                    document.getElementById('box1').style.display = 'none';
+                    document.getElementById('box6').style.display = 'none';
+
+                } else {
+                    document.getElementById('chart1').style.display = 'block';
+                    document.getElementById('chart2').style.display = 'block';
+                    document.getElementById('chart3').style.display = 'block';
+                    document.getElementById('chart4').style.display = 'block';
+                    document.getElementById('warningLog1').style.display = 'block';
+                    document.getElementById('warningLog2').style.display = 'block';
+                    document.getElementById('box5').style.display = 'none';
+                    document.getElementById('box2').style.display = 'none';
+                    document.getElementById('box3').style.display = 'none';
+                    document.getElementById('box4').style.display = 'none';
+                    document.getElementById('box1').style.display = 'none';
+                    document.getElementById('box6').style.display = 'none';
+
+                }
+            };
+            checkbox6.onclick = function() {
+                if (checkbox6.checked) {
+                    document.getElementById('chart1').style.display = 'none';
+                    document.getElementById('chart2').style.display = 'none';
+                    document.getElementById('chart3').style.display = 'none';
+                    document.getElementById('chart4').style.display = 'none';
+                    document.getElementById('warningLog1').style.display = 'none';
+                    document.getElementById('warningLog2').style.display = 'none';
+                    document.getElementById('box6').style.display = 'block';
+                    document.getElementById('box2').style.display = 'none';
+                    document.getElementById('box3').style.display = 'none';
+                    document.getElementById('box4').style.display = 'none';
+                    document.getElementById('box5').style.display = 'none';
+                    document.getElementById('box1').style.display = 'none';
+
+                } else {
+                    document.getElementById('chart1').style.display = 'block';
+                    document.getElementById('chart2').style.display = 'block';
+                    document.getElementById('chart3').style.display = 'block';
+                    document.getElementById('chart4').style.display = 'block';
+                    document.getElementById('warningLog1').style.display = 'block';
+                    document.getElementById('warningLog2').style.display = 'block';
+                    document.getElementById('box6').style.display = 'none';
+                    document.getElementById('box2').style.display = 'none';
+                    document.getElementById('box3').style.display = 'none';
+                    document.getElementById('box4').style.display = 'none';
+                    document.getElementById('box5').style.display = 'none';
+                    document.getElementById('box1').style.display = 'none';
+
+                }
+            };
+        };
+    </script> 
+    <script src="https://cdn.staticfile.org/echarts/5.0.0/echarts.min.js"></script>
+    <script src="wonderland.js"></script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <div class="overlay"></div>
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" id="sidebar-wrapper">
+            <ul class="nav sidebar-nav">
+                <li class="sidebar-brand"> <a href="#">ProjectSPC</a> </li>
+                <li> <a href="/index.html">Home</a> </li>
+                <li> <a href="/line1.html">Line1</a> </li>
+                <li> <a href="/line2.html">Line2</a> </li>
+                <li> <a href="/line3.html">Line3</a> </li>
+            </ul>
+        </nav>
+        <!-- Sidebar -->
+        
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+          <button type="button" class="hamburger is-closed animated fadeInLeft" data-toggle="offcanvas">
+            <span class="hamb-top"></span>
+            <span class="hamb-middle"></span>
+            <span class="hamb-bottom"></span>
+          </button>
+            <div class="container-fluid">
+            
+                <h1 align="center">生产线1-工艺数据统计</h1>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <form>
+                            <div id="checkboxDiv">         
+                                <input type="checkbox" name="checkboxName" value="A" id="cboxA" class="form-input" />
+                                <label for=cboxA></label>
+                                <span class="form-input">AAAA图</span>
+                                <input type="checkbox" name="checkboxName" value="B" id="cboxB" class="form-input" />
+                                <label for=cboxB></label>
+                                <span class="form-input">BBBB图</span>
+                                <input type="checkbox" name="checkboxName" value="C" id="cboxC" class="form-input" />
+                                <label for=cboxC></label>
+                                <span class="form-input">CCCC图</span>
+                                <input type="checkbox" name="checkboxName" value="D" id="cboxD" class="form-input" />
+                                <label for=cboxD></label>
+                                <span class="form-input">DDDD图</span>
+                                <input type="checkbox" name="checkboxName" value="E" id="cboxE" class="form-input" />
+                                <label for=cboxE></label>
+                                <span class="form-input">EEEE图</span>
+                                <input type="checkbox" name="checkboxName" value="F" id="cboxF" class="form-input" />
+                                <label for=cboxF></label>
+                                <span class="form-input">FFFF图</span>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div id="chart1" class="col-md-4">
+                    </div>
+
+                    <div id="chart2" class="col-md-4">
+                    </div>
+
+                    <div id="chart3" class="col-md-4">
+                    </div>
+                    <div id="chart4" class="col-md-4">
+                    </div>
+
+
+                <div id="efficiency" style="overflow-y:auto;" class="col-md-4">
+                <div class="panel panel-danger" style="margin-top: 20px;">
+                    <div class="panel-heading">
+                    <h3 class="panel-title">严重危险警报</h3>
+                    </div>
+                    <div class="panel-body" id="warningLog1"></div>
+                </div>
+                </div>
+
+                    <div id="efficiency" style="overflow-y:auto;" class="col-md-4">
+                        <div class="panel panel-warning" style="margin-top: 20px;">
+                            <div class="panel-heading">
+                            <h3 class="panel-title">潜在危险警报</h3>
+                            </div>
+                            <div class="panel-body" id="warningLog2"></div>
+                        </div>
+                        </div>
+
+                <form id="ChangeInformation" class="col-md-4" style="text-align:center;">
+                    <p >
+                        <div class="btn-group" > 
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            监控指标 <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                            <li><a href="#">长度</a></li>
+                            <li><a href="#">宽度</a></li>
+                            <li><a href="#">高度</a></li>
+                            <li><a href="#">重量</a></li>
+                            </ul>
+                        </div>
+                        </p>           
+                    <p>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon3">高位阈值</span>
+                            <input type="text" class="form-control" id="high" aria-describedby="basic-addon3">
+                        </div>
+                    </p>
+                    <p>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon3">中位阈值</span>
+                            <input type="text" class="form-control" id="average" aria-describedby="basic-addon3">
+                        </div>
+                    </p>
+                    <p>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon3">低位阈值</span>
+                            <input type="text" class="form-control" id="low" aria-describedby="basic-addon3">
+                        </div>
+                    </p>
+                    <p style="text-align:center;">
+                        <button type="button" class="btn btn-success" onclick="ChangeInformation()">提交</button> 
+                        <button type="button" onclick="Reset()" class="btn btn-warning">重置</button>
+                    </p>
+                </form>
+
+                <div id="efficiency" style="overflow-y:auto;" class="col-md-4" >
+                <div class="panel panel-primary" style="text-align:center;margin-top: 50px;">
+                    <div class="panel-heading">
+                    <h3 class="panel-title">运行效率分析</h3>
+                    </div>
+                    <!-- <div class="panel-body" id="eMessage"></div> -->
+                    <p style="text-align: center;margin-top: 30px;">
+                    <button class="btn btn-primary" type="button" >
+                        运行效率 <span class="badge" id="eMessage"></span>
+                    </button>
+                    </p>
+                    <p style="text-align: center;">
+                    <button class="btn btn-primary" type="button">
+                        质量分析 <span class="badge" id="eMessage"></span>
+                    </button>
+                    </p>
+                    <p style="text-align: center;">
+                    <button class="btn btn-primary" type="button">
+                        KPI <span class="badge" id="eMessage"></span>
+                    </button>
+                    </p>
+                </div>
+                </div>
+
+                <div id="ColChart" class="col-md-4">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <script>
+        var id = [],
+            length = [],
+            width = [],
+            height = [],
+            weight = [];
+
+        function getData() {
+            var url = "http://localhost:8080/sample3";
+            $.getJSON(url, function(json_data) {
+                id.push(json_data[0]['id']);
+                length.push(json_data[0]['length']);
+                width.push(json_data[0]['width']);
+                height.push(json_data[0]['height']);
+                weight.push(json_data[0]['weight']);
+            });
+        }
+
+        getData();
+
+        var HigherCount = 0;
+        var LowerCount = 0;
+        var HighestHeight = 17;
+        var AverageHeight = 16.5;
+        var LowestHeight = 16;
+
+        function judge() {
+            if (height[height.length - 1] > HighestHeight) {
+                HigherCount++;
+                let position = document.getElementById('warningLog1');
+                let temp = document.createElement('p');
+                var now = new Date();
+                let warningText = now + "产线出现严重危险：height值：" + height[height.length - 1] + " 大于最大阈值";
+                temp.innerText = warningText;
+                position.appendChild(temp);
+            } else if (height[height.length - 1] < LowestHeight) {
+                LowerCount++;
+                let position = document.getElementById('warningLog1');
+                let temp = document.createElement('p');
+                var now = new Date();
+                let warningText = now + "产线出现严重危险：height值：" + height[height.length - 1] + " 低于最小阈值";
+                temp.innerText = warningText;
+                position.appendChild(temp);
+            } else if (height[height.length - 1] >= AverageHeight && height[height.length - 1] <= HighestHeight) {
+                HigherCount++;
+                LowerCount = 0;
+            } else if (height[height.length - 1] < AverageHeight && height[height.length - 1] >= LowestHeight) {
+                HigherCount = 0;
+                LowerCount++;
+            }
+
+
+            if (HigherCount >= 5) {
+                let position = document.getElementById('warningLog2');
+                let temp = document.createElement('p');
+                var now = new Date();
+                let warningText = now + "产线出现潜在危险：height值连续" + HigherCount + "次高于中位阈值";
+                temp.innerText = warningText;
+                position.appendChild(temp);
+            } else if (LowerCount >= 5) {
+                let position = document.getElementById('warningLog2');
+                let temp = document.createElement('p');
+                var now = new Date();
+                let warningText = now + "产线出现潜在危险：height值连续" + LowerCount + "次低于中位阈值";
+                temp.innerText = warningText;
+                position.appendChild(temp);
+            }
+
+        }
+
+        function ChangeInformation() {
+            LowestHeight = Number(document.getElementById('low').value);
+            HighestHeight = Number(document.getElementById('high').value);
+            AverageHeight = Number(document.getElementById('average').value);
+        }
+
+        function Reset() {
+            HighestHeight = 17;
+            AverageHeight = 16.5;
+            LowestHeight = 16;
+            document.getElementById('low').value = "";
+            document.getElementById('high').value = "";
+            document.getElementById('average').value = "";
+        }
+
+        function effCalc(a,b){
+            let value = a * height[height.length - 1] + b;
+            let div = $('#eMessage');
+            //let now = new Date();
+            div.text(value);
+        }
+
+
+        var ColChartoption = {
+            title: {
+                text: '瓶颈工位监测'
+            },
+            xAxis: {
+            type: 'category',
+            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+            },
+            yAxis: {
+            type: 'value'
+            },
+            series: [{
+            data: [120, 200, 150, 80, 70, 110, 130],
+            type: 'bar',
+            showBackground: true,
+            backgroundStyle: {
+            color: 'rgba(180, 180, 180, 0.2)'
+             }
+        }]
+    };
+        
+        var Chart1option = {
+            title: {
+                text: '表格1'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: ['长度']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                name: 'id',
+                type: 'category',
+                boundaryGap: false,
+                data: id
+            },
+            yAxis: {
+                min: 0,
+                max: 30,
+                name: 'value',
+                type: 'value',
+                boundaryGap: [0, '50%'],
+            },
+            series: [{
+                name: '长度',
+                type: 'line',
+                data: length,
+                stack: '值'
+            }]
+        }
+
+        var Chart2option = {
+            title: {
+                text: '表格2'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: ['高度']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                name: 'id',
+                type: 'category',
+                boundaryGap: false,
+                data: id
+            },
+            yAxis: {
+                min: 0,
+                max: 30,
+                name: 'value',
+                type: 'value',
+                boundaryGap: [0, '50%'],
+            },
+            series: [{
+                name: '高度',
+                type: 'line',
+                data: height,
+                stack: '值'
+            }]
+        }
+
+        var Chart3option = {
+            title: {
+                text: '表格3'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: ['宽度']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                name: 'id',
+                type: 'category',
+                boundaryGap: false,
+                data: id
+            },
+            yAxis: {
+                min: 0,
+                max: 30,
+                name: 'value',
+                type: 'value',
+                boundaryGap: [0, '50%'],
+            },
+            series: [{
+                name: '宽度',
+                type: 'line',
+                data: width,
+                stack: '值'
+            }]
+        }
+
+        var Chart4option = {
+            title: {
+                text: '表格4'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: ['重量']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                name: 'id',
+                type: 'category',
+                boundaryGap: false,
+                data: id
+            },
+            yAxis: {
+                min: 0,
+                max: 50,
+                name: 'value',
+                type: 'value',
+                boundaryGap: [0, '50%'],
+            },
+            series: [{
+                name: '重量',
+                type: 'line',
+                data: weight,
+                stack: '值'
+            }]
+        }
+
+        setInterval(function() {
+            getData();
+            judge();
+            effCalc(2,3);
+            Chart1.setOption({
+                xAxis: {
+                    data: id
+                },
+                series: [{
+                    name: '长度',
+                    type: 'line',
+                    data: length,
+                    stack: '值'
+                }]
+            });
+
+            Chart2.setOption({
+                xAxis: {
+                    data: id
+                },
+                series: [{
+                    name: '高度',
+                    type: 'line',
+                    data: height,
+                    stack: '值'
+                }]
+            });
+
+            Chart4.setOption({
+                xAxis: {
+                    data: id
+                },
+                series: [{
+                    name: '重量',
+                    type: 'line',
+                    data: weight,
+                    stack: '值'
+                }]
+            });
+
+            Chart3.setOption({
+                xAxis: {
+                    data: id
+                },
+                series: [{
+                    name: '宽度',
+                    type: 'line',
+                    data: width,
+                    stack: '值'
+                }]
+            });
+        }, 1000);
+
+        var Colchart = echarts.init(document.getElementById('ColChart'));
+        Colchart.setOption(ColChartoption);
+
+        var Chart1 = echarts.init(document.getElementById('chart1'), 'wonderland');
+        Chart1.setOption(Chart1option);
+
+        var Chart2 = echarts.init(document.getElementById('chart2'), 'wonderland');
+        Chart2.setOption(Chart2option);
+
+        var Chart3 = echarts.init(document.getElementById('chart3'), 'wonderland');
+        Chart3.setOption(Chart3option);
+
+        var Chart4 = echarts.init(document.getElementById('chart4'), 'wonderland');
+        Chart4.setOption(Chart4option);
+
+    </script>
+</body>
+</html>
